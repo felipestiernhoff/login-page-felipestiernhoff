@@ -15,7 +15,7 @@
 
 <body>
     <div class="container">
-        <form class="loginForm" id="loginLogin">
+        <form class="loginForm loginFormHidden" id="loginLogin">
             <h1 class="formTitle">Login</h1>
             <div class="formMessage formMessageError"></div>
             <div class="formInputGroup">
@@ -26,7 +26,7 @@
                 <input type="password" class="formInput" autofocus placeholder="Password">
                 <div class="formInputErrorMessage"></div>
             </div>
-            <button id="formBtn" type="submit">Login</button>
+            <button class="formBtn" type="submit">Login</button>
             <p class="formText">
                 <a href="#" class="formLink">Forgot your password?</a>
             </p>
@@ -35,6 +35,24 @@
             </p>
 
         </form>
+        <form class="loginForm" id="createAccount">
+            <h1 class="formTitle">Skapa konto</h1>
+            <div class="formMessage formMessageError"></div>
+            <div class="formInputGroup">
+                <input type="text" class="formInput" autofocus placeholder="Username">
+                <div class="formInputErrorMessage"></div>
+            </div>
+            <div class="formInputGroup">
+                <input type="password" class="formInput" autofocus placeholder="Password">
+                <div class="formInputErrorMessage"></div>
+            </div>
+            <button class="formBtn" type="submit">Login</button>
+            <p class="formText">
+                <a href="#" class="formLink">Forgot your password?</a>
+            </p>
+            <p class="formText">
+                <a id="linkLogin" href="./" class="formLink">Already have an account? Sign in!</a>
+            </p>
     </div>
 
 
