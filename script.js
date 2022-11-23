@@ -1,38 +1,50 @@
-console.log("hello");
+const loginBtn = document.getElementById("loginBtn")
+const userName = document.getElementById("userName")
+const passWord = document.getElementById("passWord")
+const logoutBtn = document.getElementById("logoutBtn")
 
-let username = document.getElementById("username")
-let password = document.getElementById("password")
-let loginBtn = document.getElementById("loginBtn")
+let loginInformation = [
+    {
+        username: "janne",
+        password: "test",
+    },
+    {
+        username: "felipe",
+        password: "haha",
+    },
+    {
+        username: "medie",
+        password: "institutet",
+    }
+]
 
+function getInfo() {
+    let username = document.getElementById("userName").value
+    let password = document.getElementById("passWord").value
 
-// KOLLA OM DET FINNS ETT NAMN,
-// OM TRUE KALLA PÅ PRINT 
-// OM FALSE KALLA PÅ UNKNOWN
-
-loginBtn.addEventListener("click", () => {
-    console.log(username.value)
-    let userInput = username.value;
-    localStorage.setItem("userName", username);
-    printName()
-});
-
-
-
-/* 
-loginBtn.addEventListener("click", () => {
-    // FÅNGA SKRIVER NAMN OCH SPARA I LS
-    let userInput = userInput.value;
-    console.log("userInput i Event Listener", userInput);
-    localStorage.setItem("userName", username);
-    printName()
-});
- */
-
-function printName() {
-    // HÄMTA NAMNET FRÅN LS OCH SKRIV UT PÅ SIDAN
-    let userInput = localStorage.getItem("userInput");
+    //console.log("your username is " + username + ", And your password is " + password);
+    for (i = 0; i < loginInformation.length; i++) {
+        if (username == loginInformation[i].username && password == loginInformation[i].password) {
+            console.log(username + " is logged in")
+            let container = document.getElementById("container")
+            let containerLogin = document.getElementById("containerLogin")
+            let inloggad = document.getElementById("inloggad")
+            container.classList.add("formHidden")
+            containerLogin.classList.remove("formHidden")
+            document.getElementById("inloggad").innerHTML = `Du är inloggad som ${username}`
+            return
+        }
+    }
+    console.log("tyvärr blev något fel med inloggningen!");
+    // let felMeddelande = document.getElementById("felMeddelande")
+    // document.getElementById("felMeddelande").innerHTML = `${username} existerar inte!`
+    // ---BUG---: Försöker få in felmeddelande, se issues.
 }
 
-function printError() {
-    //SKRIV UT ATT DET EJ FINNS EN SÅN USER
-}
+function getLoggedOff() {
+    let container = document.getElementById("container")
+    let containerLogin = document.getElementById("containerLogin")
+    container.classList.remove("formHidden")
+    containerLogin.classList.add("formHidden")
+
+} 

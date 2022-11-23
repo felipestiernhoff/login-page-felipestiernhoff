@@ -5,54 +5,23 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet">
     <script src="script.js" defer></script>
     <link rel="stylesheet" href="style.css">
     <title>Document</title>
 </head>
 
 <body>
-    <div class="container">
-        <form class="loginForm loginFormHidden" id="loginLogin">
-            <h1 class="formTitle">Login</h1>
-            <div class="formMessage formMessageError"></div>
-            <div class="formInputGroup">
-                <input type="text" class="formInput" autofocus placeholder="Username">
-                <div class="formInputErrorMessage"></div>
-            </div>
-            <div class="formInputGroup">
-                <input type="password" class="formInput" autofocus placeholder="Password">
-                <div class="formInputErrorMessage"></div>
-            </div>
-            <button class="formBtn" type="submit">Login</button>
-            <p class="formText">
-                <a href="#" class="formLink">Forgot your password?</a>
-            </p>
-            <p class="formText">
-                <a id="linkCreateAccount" href="./" class="formLink">New here? Create account</a>
-            </p>
-
-        </form>
-        <form class="loginForm" id="createAccount">
-            <h1 class="formTitle">Skapa konto</h1>
-            <div class="formMessage formMessageError"></div>
-            <div class="formInputGroup">
-                <input type="text" class="formInput" autofocus placeholder="Username">
-                <div class="formInputErrorMessage"></div>
-            </div>
-            <div class="formInputGroup">
-                <input type="password" class="formInput" autofocus placeholder="Password">
-                <div class="formInputErrorMessage"></div>
-            </div>
-            <button class="formBtn" type="submit">Login</button>
-            <p class="formText">
-                <a href="#" class="formLink">Forgot your password?</a>
-            </p>
-            <p class="formText">
-                <a id="linkLogin" href="./" class="formLink">Already have an account? Sign in!</a>
-            </p>
+    <div id="container">
+        <p>Username</p>
+        <input id="userName">
+        <p>Password</p>
+        <input id="passWord">
+        <button id="loginBtn" type="button" onclick="getInfo()">Click</button>
+        <p id="felMeddelande"></p>
+    </div>
+    <div id="containerLogin" class="formHidden">
+        <p id="inloggad"></p>
+        <button id="logoutBtn" type="button" onclick="getLoggedOff()">Logga ut</button>
     </div>
 
 
