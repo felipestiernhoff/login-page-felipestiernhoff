@@ -11,17 +11,31 @@
 </head>
 
 <body>
-    <div id="container">
-        <p>Username</p>
-        <input id="userName">
-        <p>Password</p>
-        <input id="passWord">
-        <button id="loginBtn" type="button" onclick="getInfo()">Click</button>
+    <div id="container" class="formText">
+        <p>Username:</p>
+        <input id="userName" class="formInput formText">
+        <p>Password:</p>
+        <input id="passWord" class="formInput formText">
+        <button id="loginBtn" type="button" onclick="getInfo()" class="formBtn">Log in</button>
         <p id="felMeddelande"></p>
+        <button id="createAccountBtn" type="button" onclick="getNewAccount()" class="formBtn">Create Account</button>
     </div>
-    <div id="containerLogin" class="formHidden">
+    <div id="containerNewAccount" class="formText formHidden">
+        <p>Username:</p>
+        <input id="createUser" class="formInput formText">
+        <p>Password:</p>
+        <input id="createPass" class="formInput formText">
+        <p>Confirm password:</p>
+        <input id="confirmPass" class="formInput formText">
+        <button id="finalCreateAccount" type="button" onclick="getCreateAccount()" class="formBtn">Create
+            my account pls</button>
+
+        <button id="homepageCreateBtn" type="button" onclick="getBackToHome()" class="formBtn">Take me back
+            please!</button>
+    </div>
+    <div id="containerLoggedIn" class="formHidden formInput formText">
         <p id="inloggad"></p>
-        <button id="logoutBtn" type="button" onclick="getLoggedOff()">Logga ut</button>
+        <button id="logoutBtn" type="button" onclick="getLoggedOff()" class="formBtn">Logga ut</button>
     </div>
 
 
