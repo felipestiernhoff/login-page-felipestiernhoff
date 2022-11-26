@@ -64,20 +64,10 @@ let loginInformation = [
         user: "medie",
         password: "institutet",
     }
-]
-
-/* if () {
-    console.log("Är inloggad!")
-} */
-
+];
 
 localStorage.setItem("loginInformation", JSON.stringify(loginInformation))
 console.log("Ls is created!", loginInformation)
-
-
-
-
-
 
 // FUNKTIONER
 
@@ -88,18 +78,17 @@ console.log("Ls is created!", loginInformation)
 
 
 function getInfo() {
-
     if (verification()) {
         let username = document.getElementById("userName").value
         let password = document.getElementById("passWord").value
-
+        let mySession = loginInformation[userid];
         for (i = 0; i < loginInformation.length; i++) {
             if (username == loginInformation[i].user && password == loginInformation[i].password) {
-                const loginInformation = JSON.parse(localStorage.getItem("loginInformation"));
-                const mySession = loginInformation[userid];
-                localStorage.setItem("mySession", JSON.stringify(mySession));
                 console.log(username + " is logged in")
-                //localStorage.setItem("user", loginInformation[i].user);
+                const loginInformation = JSON.parse(localStorage.getItem("loginInformation"));
+                let mySession = loginInformation[userid];
+                localStorage.setItem("mySession", JSON.stringify(mySession));
+                localStorage.setItem("user", loginInformation[i].user);
                 container.classList.add("formHidden")
                 containerLoggedIn.classList.remove("formHidden")
                 inloggad.innerHTML = `Du är inloggad som ${username}`
@@ -109,7 +98,7 @@ function getInfo() {
     }
 
     console.log("felmeddelande");
-    felMeddelande.innerHTML = `${username} matchar inte lösenordet..Eller kanske inte finns, vem vet?`
+    //felMeddelande.innerHTML = `${username} matchar inte lösenordet..Eller kanske inte finns, vem vet?`
 
 }
 
@@ -131,18 +120,21 @@ verification = () => {
 
 // Logout klick, se till att clear LS?
 // just nu gör den ingenting förutom att ändra div till inloggad sidan...
+// och tar bort eventuellt felmeddelande
+// Vill få in så att den rensar både input fälten vid utlogg.
 
 function getLoggedOff() {
     container.classList.remove("formHidden")
     containerLoggedIn.classList.add("formHidden")
     felMeddelande.innerHTML = ""
-    localStorage.clear();
+    userName.innerHTML = ""
+    passWord.innerHTML = ""
+    localStorage.removeItem("mySession");
 
 }
 
 // CreateAcc klick, öppnar skapa konto formulär, inget spec.
 function getNewAccount() {
-
     container.classList.add("formHidden")
     containerNewAccount.classList.remove("formHidden")
 }
@@ -194,20 +186,19 @@ function getBackToHome() {
 
 
 //Regler för password
-//gör det simpelt med 8 tecken och 
+//gör det simpelt med 8
 passwordRules = () => {
     const pass = newPass.value;
     if (pass.length >= 8) { return true; }
 }
 
-
-
 // Checkar läget på storajjj
-/* 
-if (localStorage.getItem("my_session")) {
-    username = JSON.parse(localStorage.getItem("my_session"));
+
+if (localStorage.getItem("mySession")) {
+    let userName = JSON.parse(localStorage.getItem("mySession"));
+    console.log("LS mysession is found");
     container.classList.add("formHidden")
     containerLoggedIn.classList.remove("formHidden")
-    inloggad.innerHTML = `Du är inloggad som ${username}`
+    inloggad.innerHTML = `Du är inloggad som ${userName.user}`
 
-}  */
+} 
