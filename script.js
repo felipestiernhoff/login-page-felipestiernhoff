@@ -1,8 +1,26 @@
+// Skapar variablar för åtkomst
+// Knappar
 const loginBtn = document.getElementById("loginBtn")
-const userName = document.getElementById("userName")
-const passWord = document.getElementById("passWord")
 const logoutBtn = document.getElementById("logoutBtn")
 
+//const finalCreateAccount = document.getElementById("finalCreateAccount")
+const createAccountBtn = document.getElementById("createAccountBtn")
+//Inputs
+const userName = document.getElementById("userName")
+const passWord = document.getElementById("passWord")
+const newUser = document.getElementById("newUser")
+const newPass = document.getElementById("newPass")
+const newPassConfirm = document.getElementById("newPassConfirm")
+
+// Pages
+const container = document.getElementById("container")
+const containerLoggedIn = document.getElementById("containerLoggedIn")
+const containerNewAccount = document.getElementById("containerNewAccount")
+// Messages
+const felMeddelande = document.getElementById("felMeddelande")
+const inloggad = document.getElementById("inloggad")
+//Global var
+let userid;
 
 
 /* 
@@ -25,96 +43,171 @@ if (localStorage.getItem("loggedIn")) {
    
 } */
 
-
-
+/* if () {
+    let lastname = localStorage.getItem(key);
+}
+ */
 // Array för inlogs
 let loginInformation = [
     {
         id: 1,
-        username: "janne",
+        user: "janne",
         password: "test",
     },
     {
         id: 2,
-        username: "felipe",
+        user: "felipe",
         password: "haha",
     },
     {
         id: 3,
-        username: "medie",
+        user: "medie",
         password: "institutet",
     }
 ]
 
-if (localStorage.setItem("user", loginInformation[0].username)) {
+/* if () {
     console.log("Är inloggad!")
-}
+} */
 
 
 localStorage.setItem("loginInformation", JSON.stringify(loginInformation))
-console.log("Localstorage is wokring", loginInformation)
+console.log("Ls is created!", loginInformation)
+
+
+
+
+
+
+// FUNKTIONER
 
 // Login klick, checkar username och password
+// om det stämmer överrense, byt div så att inloggad sidan visas 
+// välkommna rätt user till sidan.
+// Om det inte stämmer överrens, visa felmeddelande med rätt user
+
 
 function getInfo() {
-    let username = document.getElementById("userName").value
-    let password = document.getElementById("passWord").value
 
-    for (i = 0; i < loginInformation.length; i++) {
-        if (username == loginInformation[i].username && password == loginInformation[i].password) {
-            console.log(username + " is logged in")
-            //Hämtar html ID
-            let container = document.getElementById("container")
-            let containerLoggedIn = document.getElementById("containerLoggedIn")
-            let inloggad = document.getElementById("inloggad")
-            localStorage.setItem("user", loginInformation[i].username);
-            //Lägger till en class på div
-            container.classList.add("formHidden")
-            //Tar bort en class på annan div
-            containerLoggedIn.classList.remove("formHidden")
-            //Lägger till `` med ${} för att göra en string med var
-            document.getElementById("inloggad").innerHTML = `Du är inloggad som ${username}`
-            //Avslutar loop??
-            return
+    if (verification()) {
+        let username = document.getElementById("userName").value
+        let password = document.getElementById("passWord").value
+
+        for (i = 0; i < loginInformation.length; i++) {
+            if (username == loginInformation[i].user && password == loginInformation[i].password) {
+                const loginInformation = JSON.parse(localStorage.getItem("loginInformation"));
+                const mySession = loginInformation[userid];
+                localStorage.setItem("mySession", JSON.stringify(mySession));
+                console.log(username + " is logged in")
+                //localStorage.setItem("user", loginInformation[i].user);
+                container.classList.add("formHidden")
+                containerLoggedIn.classList.remove("formHidden")
+                inloggad.innerHTML = `Du är inloggad som ${username}`
+                return
+            }
         }
     }
-    console.log("tyvärr blev något fel med inloggningen!");
-    //alert("tyvärr blev något fel med inloggningen!")
-    let felMeddelande = document.getElementById("felMeddelande")
-    document.getElementById("felMeddelande").innerHTML = `${username} matchar inte lösenordet..Eller kanske inte finns, vem vet?`
+
+    console.log("felmeddelande");
+    felMeddelande.innerHTML = `${username} matchar inte lösenordet..Eller kanske inte finns, vem vet?`
 
 }
 
+
+
+verification = () => {
+    const loginInformation = JSON.parse(localStorage.getItem("loginInformation"));
+    const userObject = loginInformation.find(user => { return user.user === userName.value });
+    if (userObject == undefined) { alert('Username is not in use') }
+    if (userObject.password === passWord.value) {
+        userid = userObject.id - 1;
+        console.log(userid);
+        return true;
+    }
+}
+
+
+
+
+// Logout klick, se till att clear LS?
+// just nu gör den ingenting förutom att ändra div till inloggad sidan...
+
 function getLoggedOff() {
-
-    let container = document.getElementById("container") // Login Page
-    let containerLoggedIn = document.getElementById("containerLoggedIn") // Inloggad
-    let felMeddelande = document.getElementById("felMeddelande")
-    let userNameText = document.getElementById("userName")
-    let passWordText = document.getElementById("userWord")
-
     container.classList.remove("formHidden")
     containerLoggedIn.classList.add("formHidden")
     felMeddelande.innerHTML = ""
-    //userNameText.innerHTML = ""
-    //passWordText.innerHTML = ""
+    localStorage.clear();
 
 }
 
-
+// CreateAcc klick, öppnar skapa konto formulär, inget spec.
 function getNewAccount() {
-    let createAccountBtn = document.getElementById("createAccountBtn")
-    let container = document.getElementById("container")
 
     container.classList.add("formHidden")
     containerNewAccount.classList.remove("formHidden")
 }
 
+// FinalCreateAcc, skapar ett konto, kollar värden på user/pass
+// kollar så att den inte krockar med befintlig user.
+// få in LS?
+// pusha ny user, pass och id till befintlig array
+// 
+
+function getCreateAccount() {
+    console.log("checkar läget")
+    if (newPass.value == newPassConfirm.value) {
+
+        if (passwordRules()) {
+            let loginInformation = JSON.parse(localStorage.getItem("loginInformation"));
+            const user_exists = loginInformation.some(user => user.user === newUser.value);
+            if (user_exists == false) {
+
+                let new_account = {
+                    id: loginInformation.length + 1,
+                    user: newUser.value,
+                    password: newPass.value,
+                };
+
+                loginInformation.push(new_account);
+                localStorage.setItem("loginInformation", JSON.stringify(loginInformation))
+
+                containerNewAccount.classList.add("formHidden")
+                container.classList.remove("formHidden")
+                alert('account created, please try logging in');
+
+
+            } else (alert("this username is aleady taken"))
+        } else { alert("password is invalid") }
+    } else { alert("password did not match, buuu") }
+}
+
+
+// Tillbaka knapp för att komma till 'logga in' sidan.
 function getBackToHome() {
     let homepageCreateBtn = document.getElementById("homepageCreateBtn")
-    let container = document.getElementById("container")
     let containerNewAccount = document.getElementById("containerNewAccount")
     containerNewAccount.classList.add("formHidden")
     container.classList.remove("formHidden")
 
 }
+
+
+
+//Regler för password
+//gör det simpelt med 8 tecken och 
+passwordRules = () => {
+    const pass = newPass.value;
+    if (pass.length >= 8) { return true; }
+}
+
+
+
+// Checkar läget på storajjj
+/* 
+if (localStorage.getItem("my_session")) {
+    username = JSON.parse(localStorage.getItem("my_session"));
+    container.classList.add("formHidden")
+    containerLoggedIn.classList.remove("formHidden")
+    inloggad.innerHTML = `Du är inloggad som ${username}`
+
+}  */
