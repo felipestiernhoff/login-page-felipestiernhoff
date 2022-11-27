@@ -46,8 +46,9 @@ let loginInformation = [
 console.log("Ls >", loginInformation) */
 
 window.onload = function () {
-    localStorage.setItem("accounts", JSON.stringify(allUsers));
+    localStorage.setItem("loginInformation", JSON.stringify(loginInformation));
     console.log("Refreshed page! Logging (allUsers)", allUsers);
+    console.log("Refreshed page! Logging (loginInformation)", loginInformation);
 }
 
 // ---------FUNKTIONER----------
@@ -59,12 +60,13 @@ window.onload = function () {
 function getUserInfo(username, password) {
 
     const allUsers = JSON.parse(localStorage.getItem("loginInformation"));
-    console.log('jdfasf', allUsers)
+    console.log('allUsers', allUsers);
+    console.log("loginInformation", loginInformation);
 
     for (i = 0; i < allUsers.length; i++) {
         if (username == allUsers[i].user && password == allUsers[i].password) {
             console.log("Found user:", username);
-            userName = username;
+            //userName = username;
             const allUsers = JSON.parse(localStorage.getItem("loginInformation"));
             //let convertedUser = JSON.parse(allUsers[i]);
             mySession = allUsers[i];
@@ -130,7 +132,8 @@ function getNewAccount() {
 // kollar så att den inte krockar med befintlig user.
 // pusha ny user, pass och id till befintlig array
 function getCreateAccount() {
-    console.log("checkar läget")
+    console.log("checkar läget, loggar AllUsers", (allUsers))
+    console.log("checkar läget, loggar loginInfo", (loginInformation))
     if (newPass.value == newPassConfirm.value) {
 
         if (passwordRules()) {
@@ -174,10 +177,12 @@ passwordRules = () => {
 }
 // Checkar läget på storajjj
 if (localStorage.getItem("mySession")) {
+    console.log("LS mysession is found");
     localStorage.setItem("loginInformation", JSON.stringify(allUsers))
     console.log("hahha", allUsers);
     let userName = JSON.parse(localStorage.getItem("mySession"));
-    console.log("LS mysession is found");
+
+
     container.classList.add("formHidden")
     containerLoggedIn.classList.remove("formHidden")
     inloggad.innerHTML = `Välkommen tillbaka ${userName.user}!`
