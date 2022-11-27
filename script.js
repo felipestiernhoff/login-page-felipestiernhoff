@@ -177,4 +177,4 @@ if (localStorage.getItem("mySession")) {
     container.classList.add("formHidden")
     containerLoggedIn.classList.remove("formHidden")
     inloggad.innerHTML = `Välkommen tillbaka ${userName.user}!`
-} 
+}
