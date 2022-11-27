@@ -170,7 +170,7 @@ passwordRules = () => {
 }
 // Checkar läget på storajjj
 if (localStorage.getItem("mySession")) {
-    localStorage.setItem("loginInformation", JSON.stringify(loginInformation))
+    localStorage.setItem("loginInformation", JSON.stringify(allUsers))
     console.log("hahha", allUsers);
     let userName = JSON.parse(localStorage.getItem("mySession"));
     console.log("LS mysession is found");
