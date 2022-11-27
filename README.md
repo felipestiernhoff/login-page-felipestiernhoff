@@ -1,6 +1,6 @@
 Välkommen till min login sida!
 
-Här kommer du förhoppningsvis kunna logga in med några användare!
+Här kan du logga in med några användare befintliga användare!
 
 1. user: janne, pass: test
 2. user: felipe, pass: haha
