@@ -42,9 +42,13 @@ let loginInformation = [
     }
 ];
 
-localStorage.setItem("loginInformation", JSON.stringify(loginInformation))
-console.log("Ls >", loginInformation)
+/* localStorage.setItem("loginInformation", JSON.stringify(loginInformation))
+console.log("Ls >", loginInformation) */
 
+window.onload = function () {
+    localStorage.setItem("accounts", JSON.stringify(allUsers));
+    console.log("Refreshed page! Logging (allUsers)", allUsers);
+}
 
 // ---------FUNKTIONER----------
 
