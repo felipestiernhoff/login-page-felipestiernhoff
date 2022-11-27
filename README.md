@@ -11,3 +11,6 @@ Skapa konto funkar som så att den pushar rätt info till rätt obj array för i
 
 Refresh letar efter 'mySession' på LS
 och håller användare inloggad
+
+Finns bugg då man skapar nu användare, loggar ut och refresh.
+Hade jag haft mer tid hade jag försökt ändra refresh funktionen så att den ersätter befintlig user obj array till senasr skapade med nya användare.
